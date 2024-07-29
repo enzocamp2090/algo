@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nuevo Baboso</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&family=Titan+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500&family=Playwrite+AU+SA:wght@100..400&family=Rowdies:wght@300;400;700&family=Titan+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Diario de Babosos</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Lista de Babosos</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <img id="imagen_portada" src="../imagenes/besos.jpeg" alt="">
+        <section>
+            <form id="form_baboso" onsubmit="crear_baboso(evento)">
+                <h2>Nuevo Baboso</h2>
+                <div class="info_basica">
+                    <div>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="lugar_acercamiento">¿Dónde se te acercó?</label>
+                        <input type="text" id="lugar_acercamiento" name="lugar_acercamiento" required>
+                    </div>
+                    <br>
+                    <div>
+                        <label for="tiempo_declararse">¿Cuántos días le llevó declararse?</label>
+                        <input type="number" id="tiempo_declararse" name="tiempo_declararse" required>
+                    </div>
+                    <br>
+                    <select id="forma" name="forma">
+                        <option value="">--En qué forma apareció?--</option>
+                        <option value="poeta_perdido">Poeta perdido</option>
+                        <option value="maniaco_descarado">Maníaco descarado</option>
+                        <option value="hombre_sabio">Hombre sabio</option>
+                        <option value="falso_pretendiente">Falso pretendiente</option>
+                        <option value="felpudo_sotano">Felpudo de sótano</option>
+                        <option value="seductologo">Seductólogo</option>
+                    </select>
+                </div>
+                
+                <div class="propuestas">
+                    <h3>Votemos sus propuestas:</h3>
+                    <div class="contenedor_propuestas">
+                        <div>
+                            <label for="indecentes">Indecentes</label>
+                            <input type="range" id="indecentes" name="indecentes">
+                        </div>
+                        <div>
+                            <label for="previsibles">Previsibles</label>
+                            <input type="range" id="previsibles" name="previsibles">
+                        </div>
+                        <div>
+                            <label for="divertidos">Divertidos</label>
+                            <input type="range" id="divertidos" name="divertidos">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="personalidad">
+                    <h3>Votemos al baboso:</h3>
+                    <div class="contenedor_personalidad">
+                        <div>
+                            <label for="autoestima">Autoestima</label>
+                            <input type="range" id="autoestima" name="autoestima">
+                        </div>
+                        <div>
+                            <label for="insistencia">Insistencia</label>
+                            <input type="range" id="insistencia" name="insistencia">
+                        </div>
+                        <div>
+                            <label for="originalidad">Originalidad</label>
+                            <input type="range" id="originalidad" name="originalidad">
+                        </div> 
+                    </div>
+                </div>
+
+                <div>
+                    <label for="frase">Su frase ingeniosa o truco para conquistarte:</label>
+                    <textarea id="frase" name="frase" required></textarea>
+                </div>
+                <div>
+                    <label for="respuesta">¿Qué le respondiste?:</label>
+                    <textarea id="respuesta" name="respuesta" required></textarea>
+                </div>
+                <select id="veredicto" name="veredicto">
+                    <option value="">--Veredicto final--</option>
+                    <option value="cerdo">Otro cerdo disfrazado de ángel</option>
+                    <option value="futuro_seductor">Qué puedo decir... ¡un futuro seductor!</option>
+                    <option value="sin_remedio">Lo siento... un caso humano sin remedio</option>
+                </select>
+                <br>
+                <br>
+                <button type="submit">Agregar</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        function recibir_respuesta(respuesta) {
+            return respuesta.json()
+        }
+        
+        function procesar_respuesta(datos) {
+            if (datos.success) {
+                alert("Baboso agregado exitosamente");
+                window.location.href = `/baboso?id=${datos.id}`;
+            } else {
+                alert("Error al agregar el baboso");
+            }
+        }
+
+        function manejar_error(error) {
+            console.log("ERROR")
+            console.log(error);
+        }
+
+        function crear_baboso(evento) {
+            evento.preventDefault();
+
+            const formData = new FormData(evento.target);
+            
+            const baboso = {
+                nombre: formData.get("nombre"),
+                lugar_acercamiento: formData.get("lugar_acercamiento"),
+                tiempo_declararse: formData.get("tiempo_declararse"),
+                forma: formData.get("forma"),
+                indecentes: formData.get("indecentes"),
+                previsibles: formData.get("previsibles"),
+                divertidos: formData.get("divertidos"),
+                autoestima: formData.get("autoestima"),
+                insistencia: formData.get("insistencia"),
+                originalidad: formData.get("originalidad"),
+                frase: formData.get("frase"),
+                respuesta: formData.get("respuesta"),
+                veredicto: formData.get("veredicto"),
+            };
+
+            fetch("http://127.0.0.1:5000/babosos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(baboso)
+            })
+                .then(recibir_respuesta)
+                .then(procesar_respuesta)
+                .catch(manejar_error);
+        }
+    </script>
+
+</body>
+
+</html>

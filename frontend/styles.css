@@ -1,0 +1,60 @@
+body {
+    font-family: 'Rowdies', sans-serif;
+    background-color: whitesmoke;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    background-color: #5a1e22;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+header h1 {
+    font-family: 'Titan One', sans-serif;
+    font-size: 2.5em;
+    color: #fff;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul li a {
+    text-align: center;
+    margin: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+#imagen_portada {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+section h2 {
+    text-align: center;
+    font-family: 'Titan One', sans-serif;
+    color: #5a1e22;
+}
